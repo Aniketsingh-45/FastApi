@@ -6,6 +6,7 @@ This repository contains my FastAPI applications and experiments. It serves as a
 
 - **`main.py`**: A simple, introductory FastAPI application featuring basic endpoints (`/` and `/about`).
 - **`Patient_Management/`**: A more comprehensive project that implements a fully functional REST API for managing patient data. It reads from a JSON file and includes endpoints for viewing and sorting patients.
+- **`pydantic/`**: A collection of scripts demonstrating various features of the Pydantic data validation library, from basic models to advanced custom validators and serialization.
 - **`myenv/`**: The local Python virtual environment used for managing project dependencies.
 
 ## Prerequisites
