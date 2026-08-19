@@ -7,6 +7,7 @@ This repository contains my FastAPI applications and experiments. It serves as a
 - **`main.py`**: A simple, introductory FastAPI application featuring basic endpoints (`/` and `/about`).
 - **`Patient_Management/`**: A more comprehensive project that implements a fully functional REST API for managing patient data. It reads from a JSON file and includes endpoints for viewing and sorting patients.
 - **`pydantic/`**: A collection of scripts demonstrating various features of the Pydantic data validation library, from basic models to advanced custom validators and serialization.
+- **`Ml_with_FastAPI/`**: An end-to-end Machine Learning project using FastAPI for the backend API and Streamlit for the interactive frontend UI.
 - **`myenv/`**: The local Python virtual environment used for managing project dependencies.
 
 ## Prerequisites
@@ -47,6 +48,25 @@ uvicorn app:app --reload
 ```
 
 For more detailed information on its specific endpoints and features, see the [Patient Management README](./Patient_Management/README.md).
+
+### 3. Machine Learning with FastAPI & Streamlit
+This project serves a Scikit-Learn machine learning model via a fast API and provides a gorgeous UI using Streamlit.
+
+To run the backend API, navigate to the `Ml_with_FastAPI` directory:
+
+```bash
+cd Ml_with_FastAPI
+uvicorn ml:app --reload
+```
+
+In a **separate terminal**, run the frontend UI:
+
+```bash
+cd Ml_with_FastAPI
+streamlit run frontend.py
+```
+
+For full details, please see the [ML with FastAPI README](./Ml_with_FastAPI/README.md).
 
 ## Interactive Documentation
 
