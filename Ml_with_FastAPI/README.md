@@ -17,9 +17,13 @@ The application predicts an **Estimated Health Insurance Premium Category** (e.g
 
 ## 📂 Project Structure
 
-- **`ml.py`**: The FastAPI backend application. It loads a pre-trained scikit-learn pipeline (`model.pkl`), defines the `UserInput` schema using Pydantic, creates computed features (like `lifestyle_risk` and `age_group`), and exposes a `/predict` POST endpoint.
+- **`ml.py`**: The main FastAPI application. It exposes the `/predict` and `/health` endpoints.
 - **`frontend.py`**: The Streamlit frontend application. It provides a user-friendly UI to input demographic data and makes a POST request to the FastAPI backend to fetch predictions.
-- **`model.pkl`**: A serialized scikit-learn machine learning model trained to predict insurance premiums.
+- **`model/`**: Contains the machine learning model logic.
+  - **`model.pkl`**: A serialized scikit-learn machine learning model trained to predict insurance premiums.
+  - **`predict.py`**: Helper functions to load the model and generate predictions.
+- **`schema/`**: Contains Pydantic models for data validation.
+  - **`user_input.py`**: Defines the `UserInput` schema, which includes automated feature engineering using `@computed_field` for `age_group` and `lifestyle_risk`.
 
 ---
 
@@ -27,20 +31,19 @@ The application predicts an **Estimated Health Insurance Premium Category** (e.g
 
 ### 1. Install Dependencies
 
-Make sure you are in your virtual environment, then install the required packages:
+Make sure you are in your virtual environment, then install the required packages using the `requirements.txt` file:
 
 ```bash
-pip install fastapi uvicorn pydantic scikit-learn pandas streamlit requests
+pip install -r requirements.txt
 ```
 
-*(Note: The `model.pkl` provided requires `scikit-learn` version 1.9.0 or the version it was originally trained on).*
+*(Alternatively, you can manually install the required packages: `pip install fastapi uvicorn pydantic scikit-learn pandas streamlit requests`)*
 
 ### 2. Run the FastAPI Backend
 
 Open a terminal, navigate to the `Ml_with_FastAPI` folder, and start the Uvicorn server:
 
 ```bash
-cd Ml_with_FastAPI
 uvicorn ml:app --reload
 ```
 The backend API will now be running at: `http://127.0.0.1:8000`
@@ -51,7 +54,6 @@ You can view the interactive API docs at: `http://127.0.0.1:8000/docs`
 Open a **new, separate terminal** window (don't close the FastAPI one!), activate your virtual environment, navigate to the `Ml_with_FastAPI` folder, and start Streamlit:
 
 ```bash
-cd Ml_with_FastAPI
 streamlit run frontend.py
 ```
 A browser window should automatically open to `http://localhost:8501` containing the beautiful frontend UI!
@@ -62,7 +64,7 @@ A browser window should automatically open to `http://localhost:8501` containing
 
 1. The user inputs their `Age`, `BMI`, `Smoker Status`, and `Region` into the Streamlit UI.
 2. Streamlit packages this data into a JSON payload and sends it to `http://127.0.0.1:8000/predict`.
-3. FastAPI receives the request, validates the data types and constraints using **Pydantic**.
+3. FastAPI receives the request, and validates the data types and constraints using the **Pydantic** schema defined in `schema/user_input.py`.
 4. Pydantic `@computed_field` decorators automatically derive new features (`age_group` and `lifestyle_risk`).
-5. The model transforms the data into a Pandas DataFrame and makes a prediction.
+5. The `model/predict.py` module transforms the data into a Pandas DataFrame and feeds it to the pre-trained model to make a prediction.
 6. The predicted category string is returned to Streamlit and displayed gracefully to the user!
