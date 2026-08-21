@@ -29,7 +29,29 @@ The application predicts an **Estimated Health Insurance Premium Category** (e.g
 
 ## 🚀 Getting Started
 
-### 1. Install Dependencies
+### Option A: Run with Docker (Recommended)
+
+The easiest way to run the application is using Docker. The provided `Dockerfile` will automatically set up the environment and launch both the FastAPI backend and Streamlit frontend.
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -t aniketsingh0306/ml_with_fastapi .
+   ```
+
+2. **Run the container (exposing both ports):**
+   ```bash
+   docker run -p 8000:8000 -p 8501:8501 aniketsingh0306/ml_with_fastapi
+   ```
+
+Once running:
+- **Frontend (Streamlit):** http://localhost:8501
+- **Backend (FastAPI Docs):** http://localhost:8000/docs
+
+---
+
+### Option B: Run locally without Docker
+
+#### 1. Install Dependencies
 
 Make sure you are in your virtual environment, then install the required packages using the `requirements.txt` file:
 
@@ -39,7 +61,7 @@ pip install -r requirements.txt
 
 *(Alternatively, you can manually install the required packages: `pip install fastapi uvicorn pydantic scikit-learn pandas streamlit requests`)*
 
-### 2. Run the FastAPI Backend
+#### 2. Run the FastAPI Backend
 
 Open a terminal, navigate to the `Ml_with_FastAPI` folder, and start the Uvicorn server:
 
@@ -49,7 +71,7 @@ uvicorn ml:app --reload
 The backend API will now be running at: `http://127.0.0.1:8000`
 You can view the interactive API docs at: `http://127.0.0.1:8000/docs`
 
-### 3. Run the Streamlit Frontend
+#### 3. Run the Streamlit Frontend
 
 Open a **new, separate terminal** window (don't close the FastAPI one!), activate your virtual environment, navigate to the `Ml_with_FastAPI` folder, and start Streamlit:
 
